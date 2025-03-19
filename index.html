@@ -4,36 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Agriculture Hub</title>
-    <link rel="icon" href=" INGA EDACHUM ICON VAINGA DA">
+    <link rel="icon" href="crop/farm 4.jpg">
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color: #121212;
+            color: #ffffff;
             padding: 20px;
+            margin: 0;
+            animation: fadeIn 1s ease-in;
         }
         .container {
-            background: white;
+            background: #1e1e1e;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 15px rgba(0, 128, 0, 0.3);
             display: inline-block;
             width: 80%;
             margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
         }
         select, button {
             padding: 10px;
             margin-top: 10px;
             font-size: 16px;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s;
+            background-color: #2e7d32;
+            color: white;
+        }
+        select:hover, button:hover {
+            background-color: #66bb6a;
+            cursor: pointer;
         }
         #prediction-container {
             margin-top: 20px;
             padding: 20px;
             border-radius: 10px;
-            background-color: #e6ffe6;
-            box-shadow: 0px 0px 10px rgba(0, 128, 0, 0.2);
+            background-color: #263238;
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
             display: none;
             text-align: left;
+            animation: fadeIn 1s ease-in;
         }
         .district-img {
             width: 100%;
@@ -44,11 +59,14 @@
         .prediction-box {
             display: flex;
             align-items: center;
-            background: white;
+            background: #37474f;
             padding: 10px;
             margin: 10px 0;
             border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 128, 0, 0.2);
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease-in-out forwards;
         }
         .prediction-img {
             width: 80px;
@@ -59,7 +77,19 @@
         .prediction-text {
             font-size: 16px;
             font-weight: bold;
-            color: #006400;
+            color: #a5d6a7;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -73,7 +103,8 @@
             <option value="Madurai">Madurai</option>
             <option value="Thanjavur">Thanjavur</option>
             <option value="Dindigul">Dindigul</option>
-           
+            <option value="Theni">Theni</option>
+            
         </select>
         <br>
         <button onclick="fetchData()">Get Prediction</button>
@@ -132,14 +163,24 @@
             } else if (district === "Dindigul") {
                 districtImg = "district images/dindigul.jpg";
                 predictions = [
-                    { text: "Groundnut - Rs.", img: "https://example.com/groundnut.jpg" },
-                    { text: "Groundnut - Rs.", img: "https://example.com/groundnut.jpg" },
-                    { text: "Groundnut - Rs.", img: "https://example.com/groundnut.jpg" },
-                    { text: "Groundnut - Rs.", img: "https://example.com/groundnut.jpg" },
-                    { text: "Cotton - Low rainfall forecasted.", img: "https://example.com/cotton.jpg" }
+                    { text: "coconut - Rs30-40 per kg", img: "crop/coconut.jpg" },
+                    { text: "coffee - Rs.200-1300 per kg", img: "crop/coffee.jpg" },
+                    { text: " flowers - Rs.250-500 per kg", img: "crop/flowers.jpg" },
+                    { text: "pineapples - Rs.60-150 per kg", img: "crop/pineapple.webp" },
+                    { text: "experienced average temperatures around 28°C (82°F), with highs reaching approximately 34°C (93°F) and lows around 22°C (72°F)", img: "weather/weather 1.jpg" }
                     ];
             } 
-            
+            else if (district === "Theni") {
+                districtImg = "crop/theni 02.jpg";
+                predictions = [
+                    { text: "paddy - ₹2,500 to ₹2,700 per quintal", img: "crop/paddy.jpg" },
+                    { text: "sugarcane - Rs.60-150 ", img: "crop/sugarcane.jpg" },
+                    { text: "cotton - ₹6,500 and ₹6,700 per quintal", img: "crop/cotton.jpg" },
+                    { text: "groundnut - ₹6,000 per quintal.", img: "crop/groundnuts.jpg" },
+                    { text: "average temperatures around 31°C (88°F), with highs reaching up to 39°C (102°F) and lows around 25°C (77°F), accompanied by minimal rainfall. ", img: "weather/weather 1.jpg" }
+                    ];
+            } 
+                         
             
             document.getElementById("district-img").src = districtImg;
             document.getElementById("predictions").innerHTML = predictions.map(prediction => `
