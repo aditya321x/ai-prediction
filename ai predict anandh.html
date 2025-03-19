@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agriculture Hub</title>
+    <link rel="icon" href="crop/farm 4.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+            animation: fadeIn 1s ease-in;
+        }
+        .container {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 128, 0, 0.3);
+            display: inline-block;
+            width: 80%;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+        select, button {
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s;
+            background-color: #2e7d32;
+            color: white;
+        }
+        select:hover, button:hover {
+            background-color: #66bb6a;
+            cursor: pointer;
+        }
+        #prediction-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #263238;
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
+            display: none;
+            text-align: left;
+            animation: fadeIn 1s ease-in;
+        }
+        .district-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .prediction-box {
+            display: flex;
+            align-items: center;
+            background: #37474f;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease-in-out forwards;
+        }
+        .prediction-img {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border-radius: 10px;
+        }
+        .prediction-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #a5d6a7;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>AI Agriculture Hub</h2>
+        <p>Select your District:</p>
+        <select id="district">
+            <option value="Chennai">Chennai</option>
+            <option value="Coimbatore">Coimbatore</option>
+            <option value="Madurai">Madurai</option>
+            <option value="Thanjavur">Thanjavur</option>
+            <option value="Dindigul">Dindigul</option>
+            <option value="Theni">Theni</option>
+            
+        </select>
+        <br>
+        <button onclick="fetchData()">Get Prediction</button>
+        
+        <div id="prediction-container">
+            <img id="district-img" class="district-img" src="" alt="District Image">
+            <div id="predictions"></div>
+        </div>
+    </div>
+
+    <script>
+        function fetchData() {
+            let district = document.getElementById("district").value;
+            let predictions = [];
+            let districtImg = "";
+            
+            if (district === "Chennai") {
+                districtImg = "district images/Chennai.jpg";
+                predictions = [
+                    { text: "Rice - (loose rice) 1kg = Rs.40-60", img: "crop/rice.jpg" },
+                    { text: "Jowar - 1Kg = Rs.20-100", img: "crop/jowar.jpg" },
+                    { text: "Ragi - 1Kg = Rs.40-150", img: "crop/Ragi.webp" },
+                    { text: "Bajra - 1kg = Rs.50-100", img: "crop/bajra.jpg" },
+                    { text: "Generally clear. Hazy. Low 26°C. Winds SSE at 10 to 15 km/h.", img: "weather/weather 1.jpg" },
+                
+                ];
+            } else if (district === "Coimbatore") {
+                districtImg = "district images/coimbatore.jpeg";
+                predictions = [
+                    { text: "Coconut - Rs.25-80 per piece ", img: "crop/coconut.jpg" },
+                    { text: "Millet - Rs.90-400", img: "crop/millet.png" },
+                    { text: "Banana - Rs.18-90 per kg ", img: "crop/banana.jpg" },
+                    { text: "Sunflower seeds - Rs.90-190 ", img: "crop/oil.jpg" },
+                    { text: "Hot temperatures ranging from 22°C to 37°C, with above-average rainfall totaling 48 mm.", img: "weather/weather 1.jpg" },
+                
+                ];
+            } else if (district === "Madurai") {
+                districtImg = "district images/madurai.jpg";
+                predictions = [
+                    { text: "Pulses - Rs.90-150 per kg", img: "crop/pulses.jpg" },
+                    { text: "Cotton - Rs.20-80 per kg", img: "crop/cotton.jpg" },
+                    { text: "Groundnut - Rs.60-80 per kg", img: "crop/groundnuts.jpg" },
+                    { text: "Rice - Rs.55-100 per kg", img: "crop/rice.jpg" },
+                    { text: "experience above-average temperatures, with daily highs increasing from approximately 93°F (34°C) to 97°F (36°C) over the month.", img: "weather/weather 1.jpg" }
+                ];
+            } 
+             else if (district === "Thanjavur") {
+                districtImg = "district images/thanjavur.jpg";
+                predictions = [
+                    { text: "Rice - Rs.35-100 per kg", img: "crop/rice.jpg" },
+                    { text: "Brinjal - Rs.20-60 per kg", img: "crop/brinjal.jpg" },
+                    { text: "Chillies - Rs.70-220 per kg", img: "crop/chillies 2.jpg" },
+                    { text: "Greens - Rs.20-30 per kg", img: "crop/greens.webp" },
+                    { text: "weather has been hot, with temperatures ranging from 22°C to 37°C and above-average rainfall totaling 48 mm.", img: "weather/weather 1.jpg" }
+                    ];
+            } else if (district === "Dindigul") {
+                districtImg = "district images/dindigul.jpg";
+                predictions = [
+                    { text: "coconut - Rs30-40 per kg", img: "crop/coconut.jpg" },
+                    { text: "coffee - Rs.200-1300 per kg", img: "crop/coffee.jpg" },
+                    { text: " flowers - Rs.250-500 per kg", img: "crop/flowers.jpg" },
+                    { text: "pineapples - Rs.60-150 per kg", img: "crop/pineapple.webp" },
+                    { text: "experienced average temperatures around 28°C (82°F), with highs reaching approximately 34°C (93°F) and lows around 22°C (72°F)", img: "weather/weather 1.jpg" }
+                    ];
+            } 
+            else if (district === "Theni") {
+                districtImg = "crop/theni 02.jpg";
+                predictions = [
+                    { text: "paddy - ₹2,500 to ₹2,700 per quintal", img: "crop/paddy.jpg" },
+                    { text: "sugarcane - Rs.60-150 ", img: "crop/sugarcane.jpg" },
+                    { text: "cotton - ₹6,500 and ₹6,700 per quintal", img: "crop/cotton.jpg" },
+                    { text: "groundnut - ₹6,000 per quintal.", img: "crop/groundnuts.jpg" },
+                    { text: "average temperatures around 31°C (88°F), with highs reaching up to 39°C (102°F) and lows around 25°C (77°F), accompanied by minimal rainfall. ", img: "weather/weather 1.jpg" }
+                    ];
+            } 
+                         
+            
+            document.getElementById("district-img").src = districtImg;
+            document.getElementById("predictions").innerHTML = predictions.map(prediction => `
+                <div class="prediction-box">
+                    <img class="prediction-img" src="${prediction.img}" alt="Prediction Image">
+                    <p class="prediction-text">${prediction.text}</p>
+                </div>
+            `).join('');
+            document.getElementById("prediction-container").style.display = "block";
+        }
+    </script>
+</body>
+</html>
